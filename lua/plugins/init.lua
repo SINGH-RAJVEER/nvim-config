@@ -116,6 +116,14 @@ require('lazy').setup({
     end,
   },
 
+  -- Incremental rename
+  {
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup()
+    end,
+  },
+
   -- LSP Plugins
   {
     'folke/lazydev.nvim',
@@ -143,7 +151,9 @@ require('lazy').setup({
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
-          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          vim.keymap.set('n', 'grn', function()
+            return ':IncRename ' .. vim.fn.expand '<cword>'
+          end, { buffer = event.buf, expr = true, desc = 'LSP: [R]e[n]ame' })
           map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
@@ -319,15 +329,14 @@ require('lazy').setup({
 
   -- Colorscheme
   {
-    'folke/tokyonight.nvim',
+    'ellisonleao/gruvbox.nvim',
     priority = 1000,
     config = function()
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false },
-        },
+      require('gruvbox').setup {
+        contrast = 'hard',
       }
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.o.background = 'dark'
+      vim.cmd.colorscheme 'gruvbox'
     end,
   },
 
@@ -349,7 +358,7 @@ require('lazy').setup({
         bottom_search = true, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
@@ -372,6 +381,7 @@ require('lazy').setup({
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
+      require('mini.cursorword').setup()
       local statusline = require 'mini.statusline'
       statusline.setup { use_icons = vim.g.have_nerd_font }
       statusline.section_location = function()
