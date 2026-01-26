@@ -26,3 +26,4 @@ vim.o.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.shortmess:append { I = true }
 vim.opt.fillchars:append { eob = ' ' }
+vim.opt.guifont = '3270 Nerd Font Mono:h12'
