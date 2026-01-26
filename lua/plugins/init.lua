@@ -154,6 +154,9 @@ require('lazy').setup({
           vim.keymap.set('n', 'grn', function()
             return ':IncRename ' .. vim.fn.expand '<cword>'
           end, { buffer = event.buf, expr = true, desc = 'LSP: [R]e[n]ame' })
+          vim.keymap.set('n', '<F2>', function()
+            return ':IncRename ' .. vim.fn.expand '<cword>'
+          end, { buffer = event.buf, expr = true, desc = 'LSP: [R]e[n]ame' })
           map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
