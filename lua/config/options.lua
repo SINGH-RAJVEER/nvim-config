@@ -25,3 +25,4 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.shortmess:append { I = true }
+vim.opt.fillchars:append { eob = ' ' }
