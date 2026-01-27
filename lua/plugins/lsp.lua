@@ -93,7 +93,13 @@ return {
         rust_analyzer = {},
         jdtls = {},
         pyright = {},
-        ts_ls = {},
+        ts_ls = {
+          on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
+        biome = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -109,11 +115,12 @@ return {
         'jdtls',
         'pyright',
         'typescript-language-server',
+        'biome',
         'lua-language-server',
+        'stylua',
         'rustfmt',
         'google-java-format',
         'black',
-        'prettier',
       }
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
       require('mason-lspconfig').setup {
