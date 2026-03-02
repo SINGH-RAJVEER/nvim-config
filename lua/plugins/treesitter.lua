@@ -5,7 +5,7 @@ return {
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'java', 'python', 'javascript', 'typescript', 'tsx' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'java', 'python', 'javascript', 'typescript', 'tsx', 'css' },
       auto_install = true,
       highlight = {
         enable = true,
@@ -13,5 +13,9 @@ return {
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
   },
 }

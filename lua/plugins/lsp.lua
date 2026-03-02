@@ -100,6 +100,7 @@ return {
           end,
         },
         biome = {},
+        tailwindcss = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -116,6 +117,7 @@ return {
         'pyright',
         'typescript-language-server',
         'biome',
+        'tailwindcss',
         'lua-language-server',
         'stylua',
         'rustfmt',
