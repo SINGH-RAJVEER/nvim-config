@@ -13,7 +13,7 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'mason-org/mason.nvim', opts = {} },
-      'mason-org/mason-lspconfig.nvim',
+      { 'mason-org/mason-lspconfig.nvim', opts = {} },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
       'saghen/blink.cmp',
@@ -88,10 +88,8 @@ return {
           end,
         },
       }
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
         rust_analyzer = {},
-        jdtls = {},
         pyright = {},
         ts_ls = {
           on_attach = function(client)
@@ -113,7 +111,6 @@ return {
       }
       local ensure_installed = {
         'rust-analyzer',
-        'jdtls',
         'pyright',
         'typescript-language-server',
         'biome',
@@ -124,18 +121,21 @@ return {
         'google-java-format',
         'black',
       }
+
+      for server_name, server in pairs(servers) do
+        server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
+        vim.lsp.config(server_name, server)
+      end
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers or {}),
-        automatic_installation = true,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        automatic_enable = false,
       }
+
+      for server_name, _ in pairs(servers) do
+        vim.lsp.enable(server_name)
+      end
     end,
   },
 }

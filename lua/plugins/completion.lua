@@ -16,7 +16,6 @@ return {
         end)(),
         opts = {},
       },
-      'folke/lazydev.nvim',
     },
     opts = {
       keymap = {

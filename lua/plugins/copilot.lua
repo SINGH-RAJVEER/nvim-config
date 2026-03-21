@@ -22,7 +22,6 @@ return {
     },
     build = 'make tiktoken',
     opts = {
-      debug = true,
       token_source = 'github_cli',
       question_header = '## User ',
       answer_header = '## Copilot ',
