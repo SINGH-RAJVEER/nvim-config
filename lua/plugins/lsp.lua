@@ -117,9 +117,9 @@ return {
         'tailwindcss',
         'lua-language-server',
         'stylua',
-        'rustfmt',
         'google-java-format',
         'black',
+        'ruff',
       }
 
       for server_name, server in pairs(servers) do
